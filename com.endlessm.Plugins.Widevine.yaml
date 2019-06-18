@@ -1,0 +1,28 @@
+app-id: com.endlessm.Plugins.Widevine
+runtime: org.freedesktop.Platform
+runtime-version: '18.08'
+# We don't actually need anything sdk-specific, so keep things simple.
+sdk: org.freedesktop.Platform
+modules:
+  - name: widevine
+    buildsystem: simple
+    build-commands:
+      - 'install -Dm 755 apply_extra /app/bin/apply_extra'
+    sources:
+      - type: script
+        dest-filename: apply_extra
+        commands:
+          - 'unzip widevine-linux.zip libwidevinecdm.so'
+          - 'rm widevine-linux.zip'
+      - type: extra-data
+        filename: widevine-linux.zip
+        only-arches: [x86_64]
+        url: https://dl.google.com/widevine-cdm/1.4.9.1088-linux-x64.zip
+        sha256: 1df8ca8361b8559d23b2f57171ed99f6897846384087609324b0b6a8292fedc6
+        size: 2921375
+      - type: extra-data
+        filename: widevine-linux.zip
+        only-arches: [i386]
+        url: https://dl.google.com/widevine-cdm/1.4.9.1088-linux-x64.zip
+        sha256: 7202d1b210529b59b4d16a157c1d32b272c85179f04116f2145c839a8f40ef1f
+        size: 3062013

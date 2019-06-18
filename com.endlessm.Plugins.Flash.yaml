@@ -1,0 +1,28 @@
+app-id: com.endlessm.Plugins.Flash
+runtime: org.freedesktop.Platform
+runtime-version: '18.08'
+# We don't actually need anything sdk-specific, so keep things simple.
+sdk: org.freedesktop.Platform
+modules:
+  - name: flash
+    buildsystem: simple
+    build-commands:
+      - 'install -Dm 755 apply_extra /app/bin/apply_extra'
+    sources:
+      - type: script
+        dest-filename: apply_extra
+        commands:
+          - 'tar xf flash_player_ppapi_linux.tar.gz libpepflashplayer.so'
+          - 'rm flash_player_ppapi_linux.tar.gz'
+      - type: extra-data
+        filename: flash_player_ppapi_linux.tar.gz
+        only-arches: [x86_64]
+        url: https://fpdownload.adobe.com/pub/flashplayer/pdc/32.0.0.207/flash_player_ppapi_linux.x86_64.tar.gz
+        sha256: 663cd64b0ce182bd365c2dabab6d68b561014ec5da13ae929e680dd3b8a9bbe1
+        size: 9485128
+      - type: extra-data
+        filename: flash_player_ppapi_linux.tar.gz
+        only-arches: [i386]
+        url: https://fpdownload.adobe.com/pub/flashplayer/pdc/32.0.0.207/flash_player_ppapi_linux.i386.tar.gz
+        sha256: cc2537e964ace96c274da33eca75bfeafdd32bebfddd69e9a60a1ad7f6e7c383
+        size: 8570361
